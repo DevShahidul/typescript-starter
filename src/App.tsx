@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "./App.css";
-import Person from "./components/Person";
+import Person, { Countries } from "./components/Person";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
   const [persons, setPersons] = useState<Person[]>([
@@ -16,11 +16,13 @@ function App() {
   ]);
 
   return (
-    <>
+    <UserProvider>
+      <div className="h-screen flex items-center justify-center">
       {persons.map((person) => (
-        <Person {...person} />
+        <Person {...person} country={Countries.Bangladesh} />
       ))}
-    </>
+      </div>
+    </UserProvider>
   );
 }
 

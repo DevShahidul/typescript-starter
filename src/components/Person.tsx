@@ -9,6 +9,16 @@ export interface Person {
   isMarried?: boolean;
   children?: Person[];
   address?: Address;
+  country: Countries;
+}
+
+export enum Countries {
+  Bangladesh = "Bangladesh",
+  India = "India",
+  Pakistan = "Pakistan",
+  Nepal = "Nepal",
+  Bhutan = "Bhutan",
+  SriLanka = "SriLanka",
 }
 
 const Person = (props: Person) => {
@@ -24,11 +34,14 @@ const Person = (props: Person) => {
     console.log(personBio);
   };
 
+  //   const { user, addUser, updateUser, deleteUser  } = useContext<UserContext>(UserContext);
+
   return (
     <div className="flex items-center justify-center flex-col space-y-1.5">
       <h1>Name: {name}</h1>
       <p>Age: {age}</p>
       <p>gender: {gender}</p>
+      <p>Country of Origin: {props.country}</p>
       <div className="flex items-center space-x-2">
         <span>Hobies:</span>
         <p className="space-x-2">
@@ -46,14 +59,10 @@ const Person = (props: Person) => {
       {props?.address && <p>{props?.address}</p>}
       {personBio && <p>{personBio}</p>}
       <form onSubmit={handleSunmitBio}>
-        <input
-          type="text"
-          value={personBio}
-          onChange={handleChangeBio}
-        />
-        <button type="submit">
-          Submit
-        </button>
+        <div className="space-x-2">
+        <input type="text" value={personBio} onChange={handleChangeBio} />
+        <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
   );

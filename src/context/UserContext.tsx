@@ -23,7 +23,7 @@ const contextInitialValues = {
 interface Props {
   children: React.ReactNode;
 }
-const UserContext = createContext<UserContextType>(contextInitialValues);
+export const UserContext = createContext<UserContextType>(contextInitialValues);
 export const UserProvider = (props: Props) => {
   const [users, setUsers] = useState<User[] | null>(null);
   useEffect(() => {
@@ -37,10 +37,21 @@ export const UserProvider = (props: Props) => {
       },
     ]);
   }, []);
-  
+
+  const addUser = (user: User) => {
+    setUsers([...users, user]);
+  };
+
+  const updateUser = (user: User) => {
+    setUsers(users.map((u) => (u.id === user.id ? user : u)));
+  };
+
+  const deleteUser = (id: string | number) => {
+    setUsers(users.filter((u) => u.id !== id));
+  };
 
   return (
-    <UserContext.Provider value={{ users }}>
+    <UserContext.Provider value={{ users, addUser, updateUser, deleteUser }}>
       {props.children}
     </UserContext.Provider>
   );
